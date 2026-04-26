@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Minha Área</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    .card-item {
+      border-radius: 15px;
+    }
+
+    .badge-data {
+      font-size: 14px;
+    }
+
+    .btn-cancelar {
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+<!-- HEADER -->
+<nav class="navbar bg-success text-white justify-content-center p-3">
+  <span class="navbar-brand text-white">👤 Minha Área</span>
+</nav>
+
+<div class="container py-4">
+
+  <!-- INFO USUÁRIO -->
+  <div class="text-center mb-4">
+    <h5 id="usuarioNome">Bem-vindo!</h5>
+    <p class="text-muted">Aqui estão suas inscrições</p>
+  </div>
+
+  <!-- LISTA DE INSCRIÇÕES -->
+  <div id="listaInscricoes" class="d-flex flex-column gap-3"></div>
+
+  <!-- LOGOUT -->
+  <div class="mt-4">
+    <button class="btn btn-outline-danger w-100" onclick="logout()">
+      🚪 Sair da conta
+    </button>
+  </div>
+
+</div>
+
+<script>
+const API = "http://localhost:3000";
+
+const email = localStorage.getItem("email");
+
+// =====================
+// CARREGAR INSCRIÇÕES
+// =====================
+async function carregarInscricoes() {
+
+  if(!email){
+    alert("Faça login novamente");
+    window.location.href = "home.html";
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API}/minhas-inscricoes/${email}`);
+    const dados = await res.json();
+
+    const container = document.getElementById("listaInscricoes");
+    container.innerHTML = '';
+
+    // 🔥 PRIMEIRO valida
+    if(!Array.isArray(dados)){
+      console.error("Resposta inválida:", dados);
+      container.innerHTML =
+        "<p class='text-danger text-center'>Erro ao carregar inscrições</p>";
+      return;
+    }
+
+    // 🔥 DEPOIS usa
+    if(dados.length === 0){
+      container.innerHTML = `
+        <div class="text-center text-muted">
+          Você ainda não possui inscrições 😢
+        </div>
+      `;
+      return;
+    }
+
+    // 🔥 LOOP
+    dados.forEach(item => {
+      const div = document.createElement("div");
+
+      div.className = "card shadow-sm p-3 card-item";
+
+      div.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div>
+            <h6 class="mb-1">
+              ${item.itemId?.nome || "Trilha sem nome"}
+            </h6>
+
+            <span class="badge bg-primary badge-data">
+              📅 ${formatarData(item.data)}
+            </span>
+
+            <span class="badge bg-secondary badge-data">
+              ⏰ ${item.hora || "Sem horário"}
+            </span>
+          </div>
+
+          <button class="btn btn-sm btn-danger btn-cancelar"
+            onclick="cancelar('${item._id}')">
+            Cancelar
+          </button>
+
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao carregar inscrições");
+  }
+}
+
+// =====================
+// CANCELAR INSCRIÇÃO
+// =====================
+async function cancelar(id){
+
+  const confirmar = confirm("Deseja cancelar sua inscrição?");
+
+  if(!confirmar) return;
+
+  try {
+
+    const res = await fetch(`${API}/cancelar/${id}`, {
+      method: "DELETE"
+    });
+
+    if(!res.ok){
+      alert("Erro ao cancelar");
+      return;
+    }
+
+    alert("❌ Inscrição cancelada!");
+    carregarInscricoes();
+
+  } catch (err){
+    console.error(err);
+    alert("Erro ao cancelar");
+  }
+}
+
+// =====================
+// LOGOUT
+// =====================
+function logout(){
+  localStorage.removeItem("email");
+  window.location.href = "home.html";
+}
+
+// =====================
+// FORMATAR DATA
+// =====================
+function formatarData(data){
+  const d = new Date(data);
+  return d.toLocaleDateString('pt-BR');
+}
+
+// INIT
+carregarInscricoes();
+</script>
+
+</body>
+</html>

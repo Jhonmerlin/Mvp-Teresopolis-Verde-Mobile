@@ -1,0 +1,45 @@
+.box {
+  padding: 10px 15px;
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.box:hover {
+  background-color: #d4edda;
+}
+
+.box.selected {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+}
+
+.data {
+  background: #e9ecef;
+}
+
+.data:hover {
+  background: #198754;
+  color: white;
+}
+
+.data.selected {
+  background: #0d6efd;
+  color: white;
+}
+
+.hora {
+  background: #dee2e6;
+}
+
+.hora:hover {
+  background: #198754;
+  color: white;
+}
+
+.hora.selected {
+  background: #0d6efd;
+  color: white;
+}

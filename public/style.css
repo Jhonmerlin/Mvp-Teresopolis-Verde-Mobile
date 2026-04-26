@@ -1,0 +1,90 @@
+/* 🌿 Tema geral */
+body {
+  background-color: #f0fff4;
+  font-family: Arial, sans-serif;
+}
+
+/* 🌿 Navbar */
+.navbar {
+  background-color: #38a169 !important;
+}
+
+/* 🌿 Botões */
+.btn-primary {
+  background-color: #38a169;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #2f855a;
+}
+
+.btn-success {
+  background-color: #48bb78;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #38a169;
+}
+
+/* 🌿 Cards */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  
+  
+}
+
+
+
+/* 🌿 Texto */
+h2, h3, h4 {
+  color: #2f855a;
+}
+
+/* 🌿 Login overlay */
+.login-overlay {
+  position: relative;
+  z-index: 2;
+}
+
+/* 🌿 Fundo escuro no vídeo */
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 50, 0, 0.4);
+  z-index: 1;
+}
+
+
+.dia {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.disponivel {
+  background: #198754;
+  color: white;
+  cursor: pointer;
+}
+
+.indisponivel {
+  background: #dee2e6;
+  color: #888;
+}
+
+.selecionado {
+  background: #0d6efd !important;
+}

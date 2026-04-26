@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+
+<title>Lobby - Teresópolis Verde</title>
+
+</head>
+
+<body>
+
+<!-- NAVBAR TOPO -->
+<nav class="navbar bg-success text-white justify-content-center p-3">
+  🌿 Teresópolis Verde
+</nav>
+
+
+<!-- CAROUSEL -->
+<div id="carouselExample" class="carousel slide mt-3" data-bs-ride="carousel">
+  <div class="carousel-inner">
+
+    <div class="carousel-item active">
+      <img  src="./viagem-teresopolis-rj_resized.jpg" class="d-block w-100">
+    </div>
+
+    <div class="carousel-item">
+      <img  src="./Le-Canton-696x463-1-jpeg_resized_resized.webp" class="d-block w-100">
+    </div>
+
+    <div class="carousel-item">
+      <img src="./teresopolis-33_resized.jpg" class="d-block w-100">
+    </div>
+
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+
+<!-- TEXTO DE BOAS-VINDAS -->
+<div class="container mt-4 text-center">
+  <h4>Sua proxima aventura está aqui🌄</h4>
+  <p>Explore trilhas, cachoeiras e eventos incríveis em Teresópolis</p>
+</div>
+
+
+<!-- MENU INFERIOR -->
+<div class="bottom-nav d-flex justify-content-around p-2">
+
+  <div  class="nav-item" onclick="irPara('trilhas.html')">
+    <i style="font-size: 30px; " class="bi bi-tree text-success"></i><br>
+    <span style="font-size: 20px;" id="navbar-texto">Trilhas</span>
+  </div>
+
+  <div  class="nav-item" onclick="irPara('cachoeiras.html')">
+    <i style="font-size: 30px;" class="bi bi-droplet text-primary"></i><br>
+    <span style="font-size: 20px;" id="navbar-texto" >Cachoeiras</span>
+  </div>
+
+  <div class="nav-item" onclick="irPara('eventos.html')">
+    <i style="font-size: 30px;" class="bi bi-calendar-event text-danger"></i><br>
+    <span style="font-size: 20px;" >Eventos</span>
+  </div>
+
+</div>
+
+
+<script>
+async function atualizarContador() {
+  const email = localStorage.getItem("email");
+  if(!email) return;
+
+  const res = await fetch(`${API}/minhas-inscricoes/${email}`);
+  if(!res.ok) return;
+
+  const inscricoes = await res.json();
+  let qtd = inscricoes.length;
+
+  // Máximo 9+
+  document.getElementById("contador").innerText = qtd > 9 ? "9+" : qtd;
+}
+
+
+
+function irPara(pagina){
+  window.location.href = pagina;
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- 🎥 Vídeo de fundo -->
+<video autoplay muted loop playsinline style="
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;">
+  <source src="./trilha.mp4" type="video/mp4">
+</video>
+
+<!-- Camada escura -->
+<div class="video-overlay"></div>
+
+<!-- Login -->
+<div class="container d-flex justify-content-center align-items-center" style="height:100vh;">
+  <div class="card p-4 shadow login-overlay" style="width: 100%; max-width: 400px;">
+    <h3 class="text-center mb-3">🌿 Teresópolis Verde</h3>
+
+    <input id="email" class="form-control mb-2" placeholder="Email">
+    <input id="senha" type="password" class="form-control mb-3" placeholder="Senha">
+
+    <button style="background-color: blue;" class="btn btn-primary w-100" onclick="login()">Entrar</button>
+    <button class="btn btn-success w-100 mt-2" onclick="registrar()">Registrar</button>
+  </div>
+</div>
+
+<!-- 🔗 Script de conexão com o back-end -->
+<script>
+async function login(){
+  const email = document.getElementById('email').value;
+  const senha = document.getElementById('senha').value;
+
+  if(!email || !senha){
+    alert("Preencha email e senha!");
+    return;
+  }
+
+ const resp = await fetch('/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, senha })
+});
+
+const data = await resp.json();
+
+if(resp.ok && data.tipo){
+
+  localStorage.setItem('email', email);
+  localStorage.setItem('tipo', data.tipo);
+
+  window.location.href = data.tipo === 'admin'
+    ? 'admin.html'
+    : 'home.html';
+
+} else {
+  alert(data.erro || "Erro no login");
+}
+}
+
+async function registrar(){
+  const email = document.getElementById('email').value;
+  const senha = document.getElementById('senha').value;
+
+  if(!email || !senha){
+    alert("Preencha email e senha!");
+    return;
+  }
+
+  const resp = await fetch('/registrar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, senha })
+  });
+
+  const data = await resp.json();
+  alert(data.msg || data.erro);
+}
+</script>
+
+</body>
+</html>
