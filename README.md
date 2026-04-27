@@ -2,7 +2,6 @@
 
 [Requisitos](https://docs.google.com/spreadsheets/d/1IZSwmbxBpIOXO3OpsqzFw1VTxJPGX-l041Kza5OrA3k/edit?usp=sharing)
 
-# 🌿 Sistema de Trilhas e Eventos
 
 Este projeto foi desenvolvido com o objetivo de permitir que usuários visualizem trilhas, cachoeiras e eventos, além de realizarem inscrições de forma simples e rápida.
 
