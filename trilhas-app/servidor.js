@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 // =====================
 // 📦 CONEXÃO MONGODB
 // =====================
-mongoose.connect('mongodb://127.0.0.1:27017/trilhasdb')
+mongoose.connect('mongodb+srv://sleepperadc_db_user:jgSNaVuL1ZQ1ZvDl@cluster0.t9tjwpv.mongodb.net/?appName=Cluster0')
 .then(() => console.log("🟢 MongoDB conectado"))
 .catch(err => console.error("❌ Erro MongoDB:", err));
 
@@ -237,5 +237,23 @@ app.delete('/itens/:id', async (req, res) => {
     res.json({ msg: "Item removido" });
   } catch (err) {
     res.status(500).json({ erro: "Erro ao remover item" });
+  }
+});
+
+
+app.delete("/cancelar/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const resultado = await Inscricao.findByIdAndDelete(id);
+
+    if(!resultado){
+      return res.status(404).send("Inscrição não encontrada");
+    }
+
+    res.send("Deletado com sucesso");
+  } catch (err){
+    console.error(err);
+    res.status(500).send("Erro ao deletar");
   }
 });
