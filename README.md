@@ -1,6 +1,7 @@
 # MVP Mobile Teresópolis Verde
 
 [Requisitos](https://docs.google.com/spreadsheets/d/1IZSwmbxBpIOXO3OpsqzFw1VTxJPGX-l041Kza5OrA3k/edit?usp=sharing)
+[PowerPoint](https://1drv.ms/p/c/2aaabe7ab2e16c44/IQA98dxRipb0SIv3qogivNmBAWyy-FVBWQlcH8xnAxa-rp0?e=Udb4yE)
 
 
 Este projeto foi desenvolvido com o objetivo de permitir que usuários visualizem trilhas, cachoeiras e eventos, além de realizarem inscrições de forma simples e rápida.
